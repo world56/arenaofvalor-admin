@@ -1,18 +1,19 @@
 ## 技术栈
 
-Typescript
+##Typescript
 
-React
-react-router-dom
-redux
-redux-saga
+#React
+#react-router-dom
+#redux
+#redux-saga
 
-dayjs
-antd v4
-umi-request
+#dayjs
+#antd v4
+#umi-request
 
-stylus
+#stylus
+
 
 ### `启动项目`
-yarn start
+#yarn start
 
