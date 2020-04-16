@@ -1,2 +1,2 @@
-*.tsx linguist-language=typescript
-*.ts linguist-language=typescript
+*.js linguist-language=TypeScript
+* -text
