@@ -1,5 +1,5 @@
 /**
- * 访问白名单
+ * 白名单
  */
 const whiteList: Readonly<string[]> = [
     '/user',
