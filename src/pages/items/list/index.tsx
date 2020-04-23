@@ -137,7 +137,6 @@ class ItemsList extends React.Component<{}, ItemsListState> {
                     close={this.closeWindow}
                     window={window}
                     items={items} />
-
             </Page>
         );
     };
