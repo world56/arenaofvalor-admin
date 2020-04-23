@@ -1,12 +1,17 @@
 import React from 'react';
-import App from './App';
+// import model from './models';
+import Entrance from '@/router';
 import ReactDOM from 'react-dom';
-import * as serviceWorker from './config/cache';
+// import { ConfigProvider } from 'antd';
+// import { Provider } from 'react-redux';
+import * as Cache from './config/cache';
+// import zhCN from 'antd/es/locale/zh_CN';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const Root = (
+
+  <Entrance />
+
 );
-serviceWorker.unregister();
+
+ReactDOM.render(Root, document.getElementById('root'));
+Cache.unregister();
