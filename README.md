@@ -1,6 +1,6 @@
 ## 技术栈
 
-* Typescript (拒绝anyscript )
+* Typescript (拒绝anyscript)
 
 * React
 * react-router-dom
