@@ -1,4 +1,4 @@
-import { LazyExoticComponent } from 'react';
+import React from 'react';
 
 export interface Route {
     name: string;
@@ -7,7 +7,7 @@ export interface Route {
     nav?: false;
     routes?: Route[];
     redirect: string;
-    component: LazyExoticComponent<() => JSX.Element>;
+    component: React.LazyExoticComponent<() => JSX.Element>;
 };
 
 export type Router = Route[];

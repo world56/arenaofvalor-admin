@@ -1,4 +1,2 @@
-import Router from './path';
-import Entrance from './component/Entrance';
-export default Entrance;
-export { Router };
+export { default as Router } from './path';
+export { default } from './component/Entrance';
