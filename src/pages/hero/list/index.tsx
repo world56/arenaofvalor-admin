@@ -1,13 +1,20 @@
 import React from 'react';
-
 import { Page } from '@/layout/Page';
-
+import TypeManageTitle from '@/component/TypeManageTitle';
 
 const HeroList = () => {
 
+    function add() {
+
+    };
+
+    function init() {
+
+    };
+
     return (
         <Page>
-            asdasd
+            <TypeManageTitle name='物品' add={add} init={init} />
         </Page>
     );
 

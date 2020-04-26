@@ -41,8 +41,10 @@ class ItemsList extends React.Component<{}, ItemsListState> {
         };
     };
 
+    /**
+     * @async 语法糖配合try catch(e) 可以捕获error
+     */
     protected initialization = async () => {
-        console.log('init');
         const data = await getItemsList();
         this.setState({ data });
     };
@@ -52,16 +54,16 @@ class ItemsList extends React.Component<{}, ItemsListState> {
      *  函数：依次执行(同步)
      *  对象：合并多次setState(异步)
      */
-    protected addType = () => {
+    protected add = () => {
         this.setState((s: ItemsListState) => {
             s.window = !s.window;
             return s;
         });
     };
 
-    private editItem = (r: ItemParam) => {
+    private editItem = (items: ItemParam) => {
         this.setState({
-            items: r,
+            items,
             window: true
         });
     };
@@ -122,9 +124,7 @@ class ItemsList extends React.Component<{}, ItemsListState> {
         return (
             <Page>
 
-                <TypeManageTitle name='物品'
-                    addType={this.addType}
-                    init={this.initialization} />
+                <TypeManageTitle name='物品' add={this.add} init={this.initialization} />
 
                 <Table
                     rowKey={r => r._id}

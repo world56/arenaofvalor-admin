@@ -1,5 +1,5 @@
 /**
- * 将接口定义成属性全部可选
+ * 将接口定义成属性可选
 */
 export type Partials<T> = {
     [I in keyof T]?: T[I] | undefined;

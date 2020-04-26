@@ -89,11 +89,8 @@ const TypeList: React.FC = () => {
     return (
         <Page>
 
-            <TypeManageTitle
-                name='标签'
-                init={initializatoin}
-                addType={() => setTagWindow(b => !b)}
-            />
+            <TypeManageTitle name='标签'
+                init={initializatoin} add={() => setTagWindow(b => !b)} />
 
             <Table
                 className='table'

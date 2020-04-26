@@ -5,8 +5,8 @@ import { SearchOutlined } from '@ant-design/icons';
 
 interface P {
     name: string;
+    add: () => void;
     init: () => void;
-    addType: () => void;
 };
 
 const TypeManageTitle: React.FC<P> = props => (
@@ -19,7 +19,7 @@ const TypeManageTitle: React.FC<P> = props => (
 
         <Button
             type='primary'
-            onClick={props.addType}>新增{props.name}</Button>
+            onClick={props.add}>新增{props.name}</Button>
     </>
 );
 

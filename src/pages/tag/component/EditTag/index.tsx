@@ -21,8 +21,6 @@ const layout = {
 
 const EditTag: React.FC<P> = props => {
 
-    console.log('Son Component Render');
-
     const [form] = Form.useForm();
     const { window, data, fathList } = props;
     const { resetFields, setFieldsValue } = form;
@@ -46,8 +44,8 @@ const EditTag: React.FC<P> = props => {
     };
 
     async function onFinish(e: Store) {
-        if (e._id) changeTagDetails(e as TagParam);
-        else await addTag(e as addTag);
+        if (!e._id) await addTag(e as addTag);
+        else await changeTagDetails(e as TagParam);
         message.success(`${data._id ? '编辑' : '新增'}成功`);
         close();
         props.inint();
@@ -85,4 +83,4 @@ const EditTag: React.FC<P> = props => {
 
 };
 
-export default (EditTag);
+export default EditTag;
