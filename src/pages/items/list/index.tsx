@@ -42,6 +42,7 @@ class ItemsList extends React.Component<{}, ItemsListState> {
     };
 
     protected initialization = async () => {
+        console.log('init');
         const data = await getItemsList();
         this.setState({ data });
     };

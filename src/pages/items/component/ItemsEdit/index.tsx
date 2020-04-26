@@ -26,7 +26,7 @@ class ItemsEdit extends React.PureComponent<P, S> {
     private readonly ref = React.createRef<FormInstance>();
 
     private onFinish = async (e: Store) => {
-        if (!e._id) addItems(e as ItemParam);
+        if (!e._id) await addItems(e as ItemParam);
         else await changeItemsDetails(e as ItemParam);
         message.success(`${this.props.items._id ? '编辑' : '新增'}成功`);
         this.onCancel();
