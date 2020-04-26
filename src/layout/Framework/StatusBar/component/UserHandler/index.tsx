@@ -20,7 +20,7 @@ const UserHandler: React.FC = () => {
                     window.location.reload();
                 }, 1500);
                 return;
-            default: return console.log('未能补货到相关功能');
+            default: return console.log('未能捕获到相关功能');
         }
     };
 

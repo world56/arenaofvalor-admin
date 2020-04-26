@@ -38,7 +38,7 @@ request.interceptors.response.use(async (res, cf) => {
             return Promise.reject(data);
         }
     } catch (e) {
-        console.log(e);
+        console.error('Request-Error', e);
         notification.error({
             message: '请求失败',
             description: httpCode[res.status] || 'HTTP未知错误'
