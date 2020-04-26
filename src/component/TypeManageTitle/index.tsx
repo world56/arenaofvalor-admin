@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { ComponentUpdate } from '@/utils/system';
 import { SearchOutlined } from '@ant-design/icons';
 
 interface P {
@@ -21,10 +22,5 @@ const TypeManageTitle: React.FC<P> = props => (
             onClick={props.addType}>新增{props.name}</Button>
     </>
 );
-
-
-function ComponentUpdate() {
-    return true;
-};
 
 export default React.memo(TypeManageTitle, ComponentUpdate);

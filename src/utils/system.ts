@@ -1,3 +1,7 @@
-export function initMenuState(url: string) {
+export function ComponentUpdate() {
+    return true;
+};
+
+export function initMenu(url: string) {
     return url.substr(1, url.length - 1).split('/');
 };

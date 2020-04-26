@@ -7,5 +7,5 @@ export interface ContextProps {
 
 export default createContext<ContextProps>({
     navShow: false,
-    changeNavBar: () => { }
+    changeNavBar: function () { }
 });

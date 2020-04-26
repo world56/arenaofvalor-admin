@@ -5,8 +5,6 @@ import {
     baseUrl as prefix,
     requsetTimeout as timeout
 } from '@/config/environment';
-// import { delUserInfo } from '@/models/distributed/user';
-
 
 const request = extend({ prefix, timeout });
 
@@ -31,7 +29,6 @@ request.interceptors.response.use(async (res, cf) => {
             return Promise.resolve(data);
         } else if (res.status === 401) {
             setTimeout(() => {
-                // Model.dispatch(delUserInfo());
                 window.location.reload();
             }, 1800);
             message.warn('登录超时,请重新登录账号');

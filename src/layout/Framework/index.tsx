@@ -3,7 +3,7 @@ import React, {
     useCallback
 } from 'react';
 import Working from './Working';
-import style from './index.styl?';
+import styles from './index.styl?';
 import StatusBar from './StatusBar';
 import AddressBar from './AddressBar';
 import Navigation from './Navigation';
@@ -13,18 +13,15 @@ import { PRoutes } from '@/@types/router';
 
 const Home: React.FC<PRoutes> = props => {
 
-    const [navShow, setNavShow] = useState<boolean>(false);
+    const [navShow, setNavShow] = useState(false);
 
     const changeNavBar = useCallback(() => setNavShow(bol => !bol), []);
 
-    const ProviderState = {
-        navShow,
-        changeNavBar
-    };
+    const ProviderState = { navShow, changeNavBar };
 
     return (
         <ContextState.Provider value={ProviderState}>
-            <div className={style.home}>
+            <div className={styles.home}>
                 <Navigation />
                 <LayoutRight>
                     <StatusBar />

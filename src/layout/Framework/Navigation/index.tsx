@@ -6,10 +6,10 @@ import { Menu } from 'antd';
 import Icon from '@/layout/Icon';
 import style from './index.styl?';
 import SystemInfo from '../SystemInfo';
+import { initMenu } from '@/utils/system';
 import { toPathUrl } from '@/utils/router';
 import ContextState from '../ContextState';
 import Router from '@/router/path/private';
-import { initMenuState } from '@/utils/system';
 import { MenuProps, ClickParam } from 'antd/lib/menu';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -19,17 +19,15 @@ const MenuPath: PathKey = Router.map(v => v.redirect);
 
 const Navigation: React.FC = () => {
 
-    console.log('Navigation Render');
-
     const location = useLocation();
     const navigate = useNavigate();
     const { navShow } = useContext(ContextState);
 
     const { pathname } = location;
 
-    const [openKeys, setOpenKeys] = useState<PathKey>(() => initMenuState(pathname));
+    const [openKeys, setOpenKeys] = useState<PathKey>(() => initMenu(pathname));
 
-    const monitorMenu = (e: ClickParam) => {
+    function onClick(e: ClickParam) {
         navigate(toPathUrl(e.keyPath));
         setOpenKeys(e.keyPath)
     };
@@ -40,32 +38,29 @@ const Navigation: React.FC = () => {
         else setOpenKeys(openKeys ? [keyPath] : []);
     };
 
-    const MenuStyles = navShow ? style.close : style.show;
-
     const MenuConfig = {
-        openKeys,
+        onClick,
+        onOpenChange,
         mode: "inline",
         theme: "light",
-        onClick: monitorMenu,
-        onOpenChange: onOpenChange,
         inlineCollapsed: navShow,
         defaultOpenKeys: openKeys,
         defaultSelectedKeys: openKeys,
-        className: `${style.navigation} ${MenuStyles}`
+        className: `${style.navigation} ${navShow ? style.close : style.show}`
     } as MenuProps;
 
-    if (navShow) delete MenuConfig.openKeys;
+    if (!navShow) MenuConfig.openKeys = openKeys as string[];
 
     return (
         <Menu {...MenuConfig}>
             <SystemInfo />
             {Router.map(v => v.routes && v.routes.length > 0 ? <Menu.SubMenu key={v.name} title={
                 <span><Icon type={`icon-${v.name}`} /><span>{v.title}</span></span>}>
-                {(v.routes).map(val => !val.routes ? !val.nav ? <Menu.Item key={val.name}>
+                {v.routes.map(val => !val.routes ? !val.nav ? <Menu.Item key={val.name}>
                     <span><Icon type={`icon-${val.name}`} />{val.title}</span> </Menu.Item> : null :
                     <Menu.SubMenu key={val.name} title={<span><Icon type={`icon-${val.name}`} /><span>{val.title}</span></span>}>
                         {val.routes.map(value => <Menu.Item key={value.name}><Icon type={`icon-${value.name}`} />{value.title}</Menu.Item>)}
-                    </Menu.SubMenu>)}   
+                    </Menu.SubMenu>)}
             </Menu.SubMenu> : <Menu.Item key={v.name} title={v.title}><Icon type={`icon-${v.name}`} /><span>{v.title}</span></Menu.Item>)}
         </Menu>
     );
