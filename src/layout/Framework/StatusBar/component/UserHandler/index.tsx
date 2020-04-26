@@ -5,7 +5,6 @@ import icon from '@/resource/icon.jpg';
 import { ClickParam } from 'antd/lib/menu';
 import { Menu, Dropdown, message } from 'antd';
 import { PoweroffOutlined } from '@ant-design/icons';
-// import { delUserInfo } from '@/models/distributed/user';
 
 const { userHandler } = style;
 
@@ -13,14 +12,11 @@ const UserHandler: React.FC = () => {
 
     // const dis = useDispatch();
 
-    console.log('UserHandler', 'render');
-
     function click({ key }: ClickParam) {
         switch (key) {
             case '0':
                 message.loading('正在清除用户缓存');
                 setTimeout(() => {
-                    // dis(delUserInfo());
                     window.location.reload();
                 }, 1500);
                 return;
