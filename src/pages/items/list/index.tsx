@@ -16,9 +16,9 @@ import { getItemsList, ItemParam, deleteItems } from '@/api/items';
 
 export interface ItemsListState {
     window: boolean;
+    uploading: boolean;
     data: Array<ItemParam>;
     items: Partials<ItemParam>;
-    uploading: boolean;
 };
 
 class ItemsList extends React.Component<{}, ItemsListState> {

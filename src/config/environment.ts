@@ -11,4 +11,4 @@ export const baseUrl = 'http://localhost:4001/admin';
 
 export const uploadFilesUrl = 'http://localhost:4001/admin/upload';
 
-export const iconPath = '//at.alicdn.com/t/font_1764475_yctz0liqy7d.js';
+export const iconPath = '//at.alicdn.com/t/font_1764475_kuyw6j2dkod.js';

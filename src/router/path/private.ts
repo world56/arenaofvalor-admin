@@ -26,6 +26,12 @@ export default [
                 path: '/heroList',
                 title: '英雄列表',
                 component: lazy(() => import('@/pages/hero/list'))
+            },
+            {
+                name: 'heroDetails',
+                path: '/heroDetails',
+                title: '新增英雄',
+                component: lazy(() => import('@/pages/hero/details'))
             }
         ]
     }
