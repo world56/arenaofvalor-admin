@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './index.styl?';
-import logo from '@/resource/logo.jpg';
+import logo from '@/resource/logo.png';
 import { ComponentUpdate } from '@/utils/system';
 
 const SystemInfo = () => (
