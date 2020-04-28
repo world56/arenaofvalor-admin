@@ -1,5 +1,7 @@
 import React, {
-    useState
+    useState,
+    useEffect,
+    useCallback,
 } from 'react';
 import styles from './index.styl?';
 import { Page } from '@/layout/Page';
@@ -7,10 +9,14 @@ import BtnCenter from '@/layout/BtnCenter';
 import { beforeUpload } from '@/utils/file';
 import { Store } from 'rc-field-form/lib/interface';
 import { uploadFilesUrl } from '@/config/environment';
-import { Form, Input, Button, Upload, message } from 'antd';
 import { InternalFieldProps } from 'rc-field-form/lib/Field';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { addHeroDetails } from '@/api/hero';
+// import { addHeroDetails } from '@/api/hero';
+import { getItemsList } from '@/api/items';
+import { getTagList, TagParam } from '@/api/tag';
+import { Form, Input, Button, Upload, Select, Rate } from 'antd';
+
+type TagType = TagParam & { name: string };
 
 const layout = {
     labelCol: { span: 4 },
@@ -26,14 +32,28 @@ const HeroDetails: React.FC = () => {
 
     const [form] = Form.useForm();
 
+    const [hero, setHero] = useState<TagType[]>([]);
+    const [equip, setEquip] = useState<TagType[]>([]);
     const [upLoad, setUpLoad] = useState<UploadFiles>({
         load: false,
         url: undefined
     });
 
+    const initSelect = useCallback(async () => {
+        const tag = await getTagList();
+        setHero(tag);
+        const item = await getItemsList();
+        console.log(item)
+        setEquip(item);
+    }, []);
+
+    useEffect(() => {
+        initSelect();
+    }, [initSelect]);
+
     async function sumbit(e: Store) {
-        await addHeroDetails(e);
-        message.success('新增成功');
+        // await addHeroDetails(e);
+        // message.success('新增成功');
         console.log(e, 'SUMBIT');
     };
 
@@ -43,9 +63,8 @@ const HeroDetails: React.FC = () => {
             setUpLoad(s => ({ ...s, load: !s.load }));
         };
         if (response) {
-            const { originalname, url } = e.file.response;
+            const { url } = e.file.response;
             setUpLoad(s => ({ ...s, url }));
-            form.setFieldsValue({ name: originalname });
             return response.url;
         } else return undefined;
     };
@@ -56,8 +75,6 @@ const HeroDetails: React.FC = () => {
             <div className="ant-upload-text">上传头像</div>
         </div>
     };
-
-    console.log('render')
 
     return (
         <Page>
@@ -89,6 +106,89 @@ const HeroDetails: React.FC = () => {
                     label="英雄名称"
                     rules={[{ required: true, message: '英雄名称不得为空' }]}>
                     <Input placeholder='请输入英雄名称' />
+                </Form.Item>
+
+                <Form.Item
+                    name="title"
+                    label="英雄称号"
+                    rules={[{ required: true, message: '英雄称号不得为空' }]}>
+                    <Input placeholder='请输入英雄称号' />
+                </Form.Item>
+
+                <Form.Item
+                    name="categories"
+                    label="英雄类型"
+                    rules={[{ required: true, message: '英雄类型不得为空' }]}>
+                    <Select placeholder='请选择英雄类型'>
+                        {hero.map(v => <Select.Option key={v._id} value={v._id}>{v.name}</Select.Option>)}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    name={['scores', 'difficult']}
+                    label="难度评分"
+                    rules={[{ required: true, message: '难度评分不得为空' }]}>
+                    <Rate count={10} allowHalf />
+                </Form.Item>
+
+                <Form.Item
+                    name={['scores', 'skills']}
+                    label="技能评分"
+                    rules={[{ required: true, message: '技能评分不得为空' }]}>
+                    <Rate count={10} allowHalf />
+                </Form.Item>
+
+                <Form.Item
+                    name={['scores', 'attack']}
+                    label="输出评分"
+                    rules={[{ required: true, message: '输出评分不得为空' }]}>
+                    <Rate count={10} allowHalf />
+                </Form.Item>
+
+                <Form.Item
+                    name={['scores', 'survive']}
+                    label="生存评分"
+                    rules={[{ required: true, message: '生存评分不得为空' }]}>
+                    <Rate count={10} allowHalf />
+                </Form.Item>
+
+                <Form.Item
+                    name="tailwind"
+                    label="顺风出装"
+                    rules={[{ required: true, message: '顺风出装不得为空' }]}>
+                    <Select mode="multiple" placeholder="请选择顺风出装">
+                        {equip.map(v => <Select.Option key={v._id} value={v._id}>{v.name}</Select.Option>)}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    name="upwind"
+                    label="逆风出装"
+                    rules={[{ required: true, message: '逆风出装不得为空' }]}>
+                    <Select mode="multiple" placeholder="逆风出装不得为空">
+                        {equip.map(v => <Select.Option key={v._id} value={v._id}>{v.name}</Select.Option>)}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    name="usageTips"
+                    label="使用技巧"
+                    rules={[{ required: true, message: '使用技巧不得为空' }]}>
+                    <Input.TextArea rows={6} placeholder='请输入使用技巧' />
+                </Form.Item>
+
+                <Form.Item
+                    name="battleTips"
+                    label="对战技巧"
+                    rules={[{ required: true, message: '对战技巧不得为空' }]}>
+                    <Input.TextArea rows={6} placeholder='请输入对战技巧' />
+                </Form.Item>
+
+                <Form.Item
+                    name="teamTips"
+                    label="团战思路"
+                    rules={[{ required: true, message: '团战思路不得为空' }]}>
+                    <Input.TextArea rows={6} placeholder='请输入团战思路' />
                 </Form.Item>
 
                 <BtnCenter>

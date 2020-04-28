@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { ComponentUpdate } from '@/utils/system';
+import { ComponentNoUpdate } from '@/utils/system';
 import { SearchOutlined } from '@ant-design/icons';
 
 interface P {
@@ -23,4 +23,4 @@ const TypeManageTitle: React.FC<P> = props => (
     </>
 );
 
-export default React.memo(TypeManageTitle, ComponentUpdate);
+export default React.memo(TypeManageTitle, ComponentNoUpdate);

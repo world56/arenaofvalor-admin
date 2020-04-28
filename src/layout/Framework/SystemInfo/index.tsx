@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './index.styl?';
 import logo from '@/resource/logo.png';
-import { ComponentUpdate } from '@/utils/system';
+import { ComponentNoUpdate } from '@/utils/system';
 
 const SystemInfo = () => (
     <div className={style.systemInfo}>
@@ -13,4 +13,4 @@ const SystemInfo = () => (
     </div>
 );
 
-export default React.memo(SystemInfo, ComponentUpdate);
+export default React.memo(SystemInfo, ComponentNoUpdate);

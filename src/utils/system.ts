@@ -1,4 +1,4 @@
-export function ComponentUpdate() {
+export function ComponentNoUpdate() {
     return true;
 };
 
