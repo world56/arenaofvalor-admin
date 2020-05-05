@@ -40,7 +40,7 @@ const tabListNoTitle = [
     }
 ];
 
-const initVal = { skills: [{ name: '名称', icon: '图标' }] };
+const initVal = { skills: [{ name: '名称', icon: '' }] };
 
 const HeroDetails = () => {
 
