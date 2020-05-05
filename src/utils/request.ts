@@ -9,9 +9,7 @@ import {
 const request = extend({ prefix, timeout });
 
 request.interceptors.request.use((url, options) => {
-    const headers = {
-        Authorization: 'token'
-    };
+    const headers = { Authorization: 'token' };
     return {
         url,
         options: {
@@ -22,7 +20,7 @@ request.interceptors.request.use((url, options) => {
     };
 }, { global: true });
 
-request.interceptors.response.use(async (res, cf) => {
+request.interceptors.response.use(async res => {
     try {
         const data = await res.clone().json();
         if (res.status === 200) {

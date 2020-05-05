@@ -17,7 +17,7 @@ type PathKey = Array<string | undefined>;
 
 const MenuPath: PathKey = Router.map(v => v.redirect);
 
-const Navigation: React.FC = () => {
+const Navigation = () => {
 
     const location = useLocation();
     const navigate = useNavigate();

@@ -89,6 +89,8 @@ const TypeList: React.FC = () => {
     return (
         <Page>
 
+            {/* 这里可以不用使用useCallback方法做记忆函数 */}
+            {/* 因为 TypeManageTitle组件 使用了Memo方法跳过了Diff比较 */}
             <TypeManageTitle name='标签'
                 init={initializatoin} add={() => setTagWindow(b => !b)} />
 

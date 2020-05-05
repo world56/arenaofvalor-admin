@@ -1,3 +1,4 @@
+
 /**
  * 将接口定义成属性可选
 */
@@ -16,3 +17,10 @@ export type Picks<T, K extends keyof T = any> = {
  * 返回差异比较接口属性
  */
 export type DiffType<T, U> = T extends U ? never : T;
+
+/**
+ * Object Types
+ */
+export type ObjType<T> = {
+    [index in number | string]: T;
+};

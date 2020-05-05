@@ -1,9 +1,6 @@
-export function toPathUrl(path: string[]) {
+export function toPathUrl(url: string[]) {
     let str = '';
-    const pathLen = path.length - 1;
-    for (let i = pathLen; i >= 0; i--) {
-        const url = `/${path[i]}`;
-        str += url;
-    };
+    let i = url.length - 1;
+    for (i; i >= 0; i--) str += `/${url[i]}`;
     return str;
 };

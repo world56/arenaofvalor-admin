@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './index.styl?';
+import { RouterView } from '@/router';
 import { PRoutes } from '@/@types/router';
-import RouterView from '@/router/component/RouterView';
 
 const Working: React.FC<PRoutes> = ({ routes = [] }) => (
     <div className={style.work}>

@@ -3,29 +3,30 @@ import React, {
     useEffect,
     useCallback,
 } from 'react';
-// import styles from './index.styl?';
+import styles from './index.styl?';
+import { useUploadState } from '@/hooks';
+import { getItemsList } from '@/api/items';
 import BtnCenter from '@/layout/BtnCenter';
 import { beforeUpload } from '@/utils/file';
+// import { addHeroDetails } from '@/api/hero';
+import { getTagList, TagParam } from '@/api/tag';
 import { Store } from 'rc-field-form/lib/interface';
 import { uploadFilesUrl } from '@/config/environment';
 import { InternalFieldProps } from 'rc-field-form/lib/Field';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-// import { addHeroDetails } from '@/api/hero';
-import { getItemsList } from '@/api/items';
-import { getTagList, TagParam } from '@/api/tag';
 import { Form, Input, Button, Upload, Select, Rate, Card } from 'antd';
-// import { CardProps } from 'antd/lib/card';
+// import { CardProps } from 'antd/lib/card'; ,
 
 type TagType = TagParam & { name: string };
 
 const layout = {
-    labelCol: { span: 2.5 },
-    wrapperCol: { span: 18 }
+    labelCol: { span: 2 },
+    wrapperCol: { span: 12 }
 };
 
-interface UploadFiles {
-    load: boolean;
-    url: string | undefined;
+const ListLayout = {
+    labelCol: { span: 3 },
+    wrapperCol: { span: 15 }
 };
 
 const tabListNoTitle = [
@@ -41,23 +42,19 @@ const tabListNoTitle = [
 
 const initVal = { skills: [{ name: '名称', icon: '图标' }] };
 
-const HeroDetails: React.FC = () => {
+const HeroDetails = () => {
 
     const [form] = Form.useForm();
 
     const [hero, setHero] = useState<TagType[]>([]);
     const [equip, setEquip] = useState<TagType[]>([]);
-    const [upLoad, setUpLoad] = useState<UploadFiles>({
-        load: false,
-        url: undefined
-    });
+    const { load, setState } = useUploadState();
 
     const [cardState, setCaedState] = useState('基本信息');
 
     const initSelect = useCallback(async () => {
-        const tag = await getTagList();
+        const [tag, item] = await Promise.all<TagType[]>([getTagList(), getItemsList()])
         setHero(tag);
-        const item = await getItemsList();
         setEquip(item);
     }, []);
 
@@ -71,21 +68,21 @@ const HeroDetails: React.FC = () => {
         console.log(e, 'SUMBIT');
     };
 
-    const normFile: InternalFieldProps['getValueFromEvent'] = e => {
+    const toFile: InternalFieldProps['getValueFromEvent'] = (e, i) => {
         const { file: { status, response } } = e;
-        if (status === 'uploading' && !upLoad.load) {
-            setUpLoad(s => ({ ...s, load: !s.load }));
-        };
-        if (response) {
-            const { url } = e.file.response;
-            setUpLoad(s => ({ ...s, url }));
+        if (status === 'uploading' && !load[i]) {
+            setState(i, true);
+        } else if (response) {
+            setState(i, false);
             return response.url;
-        } else return undefined;
+        };
     };
 
     function onTabChange(key: string) {
         setCaedState(key);
     };
+
+    const heroImg = form.getFieldValue('icon');
 
     return (
         <Form
@@ -101,7 +98,7 @@ const HeroDetails: React.FC = () => {
                         name="icon"
                         label="英雄头像"
                         valuePropName='file'
-                        getValueFromEvent={normFile}
+                        getValueFromEvent={e => toFile(e, 'icon')}
                         rules={[{ required: true, message: '英雄头像不得为空' }]}>
                         <Upload
                             name="avatar"
@@ -110,8 +107,8 @@ const HeroDetails: React.FC = () => {
                             showUploadList={false}
                             action={uploadFilesUrl}
                             beforeUpload={beforeUpload}>
-                            {upLoad.url ? <img src={upLoad.url} alt="avatar" style={{ width: '100%' }} /> : <div>
-                                {upLoad.load ? <LoadingOutlined /> : <PlusOutlined />}
+                            {heroImg ? <img src={heroImg} alt="avatar" /> : <div>
+                                {load['icon'] ? <LoadingOutlined /> : <PlusOutlined />}
                                 <div className="ant-upload-text">上传头像</div>
                             </div>}
                         </Upload>
@@ -208,21 +205,39 @@ const HeroDetails: React.FC = () => {
                     </Form.Item>
                 </div>
                 <div style={{ display: cardState === '技能信息' ? 'block' : 'none' }}>
-                    <Form.List name='skills'>
-                        {(fields, s) => (
-                            fields.map((v, i) => {
+                    <Form.List name='skills' >
+                        {(fields, s) => {
+                            const path = form.getFieldValue('skills');
+                            return fields.map((v, i) => {
                                 return (
-                                    <div key={v.key}>
-                                        <Form.Item name={[v.key, 'name']}>
+                                    <Card title={`技能 ${i + 1}`} extra={<span>删除</span>} className={styles.skillCard}>
+                                        <Form.Item label="技能图标" name={[v.key, 'icon']} valuePropName='file'
+                                            getValueFromEvent={e => toFile(e, `index${i}`)}  {...ListLayout}>
+                                            <Upload
+                                                name="avatar"
+                                                listType="picture-card"
+                                                showUploadList={false}
+                                                action={uploadFilesUrl}
+                                                beforeUpload={beforeUpload}>
+                                                {path[i].icon ? <img src={path[i].icon} alt="avatar" /> : <div>
+                                                    {load[`index${i}`] ? <LoadingOutlined /> : <PlusOutlined />}
+                                                    <div className="ant-upload-text">上传图标</div>
+                                                </div>}
+                                            </Upload>
+                                        </Form.Item>
+                                        <Form.Item label="技能名称" name={[v.key, 'name']} {...ListLayout}>
                                             <Input />
                                         </Form.Item>
-                                        <Form.Item name={[v.key, 'icon']}>
-                                            <Input />
+                                        <Form.Item label="技能描述" name={[v.key, 'description']} {...ListLayout}>
+                                            <Input.TextArea rows={4} />
                                         </Form.Item>
-                                    </div>
+                                        <Form.Item label="小提示" name={[v.key, 'tips']} {...ListLayout}>
+                                            <Input.TextArea rows={4} />
+                                        </Form.Item>
+                                    </Card>
                                 )
                             })
-                        )}
+                        }}
                     </Form.List>
                 </div>
 

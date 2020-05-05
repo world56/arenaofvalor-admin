@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
-export interface ContextProps {
+export interface NavigationContextProps {
     navShow: boolean;
     changeNavBar(): void;
 };
 
-export default createContext<ContextProps>({
+export default createContext<NavigationContextProps>({
     navShow: false,
     changeNavBar: function () { }
 });
