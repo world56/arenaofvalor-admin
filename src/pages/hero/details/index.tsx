@@ -78,6 +78,12 @@ const HeroDetails = () => {
         };
     };
 
+    function addSkills() {
+        const skills = form.getFieldValue('skills');
+        skills.push({ name: '', icon: '' });
+        form.setFieldsValue({ skills });
+    };
+
     function onTabChange(key: string) {
         setCaedState(key);
     };
@@ -208,9 +214,10 @@ const HeroDetails = () => {
                     <Form.List name='skills' >
                         {(fields, s) => {
                             const path = form.getFieldValue('skills');
+                            console.log(path, 'path');
                             return fields.map((v, i) => {
                                 return (
-                                    <Card title={`技能 ${i + 1}`} extra={<span>删除</span>} className={styles.skillCard}>
+                                    <Card title={`技能 ${i + 1}`} key={i} extra={<span>删除</span>} className={styles.skillCard}>
                                         <Form.Item label="技能图标" name={[v.key, 'icon']} valuePropName='file'
                                             getValueFromEvent={e => toFile(e, `index${i}`)}  {...ListLayout}>
                                             <Upload
@@ -239,6 +246,7 @@ const HeroDetails = () => {
                             })
                         }}
                     </Form.List>
+                    <Button onClick={addSkills} className={styles.addSkills}>添加技能</Button>
                 </div>
 
             </Card>
