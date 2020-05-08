@@ -3,7 +3,7 @@
 * Typescript
 
 * React
-* react-router-dom
+* react-router-dom v6 alpha-03
 * redux
 * redux-saga
 
