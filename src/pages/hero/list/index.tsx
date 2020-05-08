@@ -4,14 +4,14 @@ import React, {
     useCallback,
 } from 'react';
 import styles from './index.styl?';
-import { Table, Modal } from 'antd';
 import { Page } from '@/layout/Page';
+import { Table, Modal, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { TableProps } from 'antd/lib/table/Table';
 import TypeManageTitle from '@/component/TypeManageTitle';
 import { TableBtn, TableBtnLayout } from '@/layout/TableBtn';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { getHeroList } from '@/api/hero';
+import { getHeroList, deleteHero, HeroParam } from '@/api/hero';
 
 const HeroList: React.FC = () => {
 
@@ -19,17 +19,21 @@ const HeroList: React.FC = () => {
 
     const navigate = useNavigate();
 
-    function editHero() {
-        navigate('/hero/heroDetails');
+    function editHero(r?: HeroParam) {
+        navigate('/hero/heroDetails', {
+            state: { _id: r?._id }
+        });
     };
 
-    function delHero(r: any) {
+    function delHero(r: HeroParam) {
         Modal.confirm({
             title: '警告',
             icon: <ExclamationCircleOutlined />,
-            content: `您确定要删除 '${r.name}' 分类标签？`,
+            content: `您确定要删除 '${r.name}' ？`,
             onOk: async () => {
-
+                await deleteHero({ _id: r._id });
+                message.success('删除成功');
+                init();
             }
         });
     };
@@ -43,7 +47,7 @@ const HeroList: React.FC = () => {
         init();
     }, [init]);
 
-    const columns: TableProps<any>['columns'] = [
+    const columns: TableProps<HeroParam>['columns'] = [
         {
             title: '英雄ID',
             dataIndex: '_id',
@@ -64,7 +68,7 @@ const HeroList: React.FC = () => {
             align: 'center',
             render: r => (
                 <TableBtnLayout>
-                    <TableBtn onClick={() => editHero()}>编辑</TableBtn>
+                    <TableBtn onClick={() => editHero(r)}>编辑</TableBtn>
                     <TableBtn danger onClick={() => delHero(r)}>删除</TableBtn>
                 </TableBtnLayout>
             )
