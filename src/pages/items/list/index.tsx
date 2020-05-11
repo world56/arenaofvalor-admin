@@ -43,6 +43,7 @@ class ItemsList extends React.Component<{}, ItemsListState> {
 
     /**
      * @async 语法糖配合try catch(e) 可以捕获error
+     * @errorMessage 错误提示信息已经在全局做处理
      */
     protected initialization = async () => {
         const data = await getItemsList();

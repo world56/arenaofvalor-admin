@@ -23,4 +23,9 @@ const TypeManageTitle: React.FC<P> = props => (
     </>
 );
 
+/**
+ * @memo 类似于 Class PureComponent组件 || shouldComponentUpdate方法
+ * 此组件不需要重复渲染
+ */
+
 export default React.memo(TypeManageTitle, ComponentNoUpdate);

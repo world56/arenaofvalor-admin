@@ -11,17 +11,23 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Modal, Form, Input, Button, message, Upload } from 'antd';
 import { addItems, changeItemsDetails, ItemParam } from '@/api/items';
 
-interface P extends Picks<ItemsListState, 'window' | 'items'> {
+interface ItemsEditProps extends Picks<ItemsListState, 'window' | 'items'> {
     init(): void;
     close: () => void;
 };
 
-interface S {
+interface ItemsEditState {
     loading: boolean,
     imageUrl: string;
 };
 
-class ItemsEdit extends React.PureComponent<P, S> {
+/**
+ * @PureComponent
+ * 继承这个类，自动实现浅比较 减少Render次数
+ * 可提高性能
+ */
+
+class ItemsEdit extends React.PureComponent<ItemsEditProps, ItemsEditState> {
 
     private readonly ref = React.createRef<FormInstance>();
 
@@ -33,7 +39,7 @@ class ItemsEdit extends React.PureComponent<P, S> {
         this.props.init();
     };
 
-    public componentDidUpdate(p: P) {
+    public componentDidUpdate(p: ItemsEditProps) {
         if (p.items !== this.props.items) {
             if (!this.ref.current) return false;
             const { items, window } = this.props;

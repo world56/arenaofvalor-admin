@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { ObjType } from '@/@types/utils';
 
-export type useUploadState = ObjType<boolean>;
-
 /**
  * @FormComponent 上传组件Loading状态管理
- * @setTimeout 目的为了解决 getValueFromEvent 事件执行顺序问题
+ * @setTimeout 解决 getValueFromEvent 事件执行顺序问题
  */
+export type useUploadState = ObjType<boolean>;
+
 export function useUploadState() {
 
     const [load, setLoad] = useState<useUploadState>({});
@@ -28,5 +28,18 @@ export function useUploadState() {
     return {
         load,
         setState
+    };
+};
+
+/**
+ * 针对Input组件 直接使用
+ * 不需要在去绑定状态和监听事件
+ */
+export function useIput(value: string) {
+    const [val, setVal] = useState(value);
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setVal(e.target.value);
+    return {
+        val,
+        onChange
     };
 };
