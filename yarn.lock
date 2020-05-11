@@ -1969,7 +1969,7 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
 
 antd@^4.2.0:
   version "4.2.0"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-4.2.0.tgz#1b6c9cb1d534b33e83a24052d9a7ccbaba19d138"
+  resolved "https://registry.npmjs.org/antd/-/antd-4.2.0.tgz#1b6c9cb1d534b33e83a24052d9a7ccbaba19d138"
   integrity sha512-QEVhf2ESoBGD4Ef5UHVqHtKiiGEARQZuYLx+qcHbfZf3bLwsRHABgArIK0xsJyyoIts0dgwEBl5d8iI1+TVaVg==
   dependencies:
     "@ant-design/icons" "^4.1.0"

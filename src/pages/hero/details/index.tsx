@@ -12,9 +12,9 @@ import { useLocation } from 'react-router-dom';
 import { getTagList, TagParam } from '@/api/tag';
 import { Store } from 'rc-field-form/lib/interface';
 import { uploadFilesUrl } from '@/config/environment';
-import { addHeroDetails, HeroParam } from '@/api/hero';
 import { InternalFieldProps } from 'rc-field-form/lib/Field';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { addHeroDetails, HeroParam, getHeroDetails } from '@/api/hero';
 import { Form, Input, Button, Upload, Select, Rate, Card, message } from 'antd';
 
 type TagType = TagParam & { name: string };
@@ -53,23 +53,27 @@ const HeroDetails = () => {
     const [equip, setEquip] = useState<TagType[]>([]);
     const { load, setState } = useUploadState();
 
-    console.log(location, 'location')
-
     const [cardState, setCaedState] = useState('基本信息');
 
     const initSelect = useCallback(async () => {
-        const [tag, item] = await Promise.all<TagType[]>([getTagList(), getItemsList()])
+        const [tag, item] = await Promise.all<TagType[]>([getTagList(), getItemsList()]);
         setHero(tag);
         setEquip(item);
     }, []);
 
-    useEffect(() => {
-        initSelect();
-    }, [initSelect]);
+    const init = useCallback(async () => {
+        const res = await getHeroDetails({ _id });
+        console.log(res, '!!!!!!!');
+    }, [_id]);
 
     useEffect(() => {
-        console.log(_id, '传递了ID');
-    }, [_id]);
+        init();
+        initSelect();
+    }, [initSelect, init]);
+
+    // useEffect(() => {
+    //     console.log(_id, '传递了ID');
+    // }, [_id]);
 
     async function sumbit(e: Store) {
         console.log(e, 'SUMBIT');

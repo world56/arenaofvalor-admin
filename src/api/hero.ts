@@ -58,8 +58,18 @@ export function addHeroDetails(data: HeroParam) {
  * 删除英雄
  */
 export function deleteHero(params: MongoModel) {
-    return request('/rest/hero', {
+    return request('/rest/hero/details', {
         method: 'DELETE',
+        params
+    });
+};
+
+/**
+ * 获取英雄详情
+ */
+export function getHeroDetails(params: MongoModel) {
+    return request('/rest/hero', {
+        method: 'GET',
         params
     });
 };
