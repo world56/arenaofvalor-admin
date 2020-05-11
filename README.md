@@ -10,6 +10,7 @@
 * dayjs
 * antd v4
 * umi-request
+* umi-hooks
 
 * stylus
 
