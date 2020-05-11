@@ -35,7 +35,7 @@ export function useUploadState() {
  * @HTMLInputElement 组件直接使用
  * 不需要在去绑定状态和监听事件
  */
-export function useIput(value: string) {
+export function useIput(value?: string) {
     const [val, setVal] = useState(value);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setVal(e.target.value);
     return {
