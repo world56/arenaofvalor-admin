@@ -23,13 +23,11 @@ const Navigation = () => {
     const navigate = useNavigate();
     const { navShow } = useContext(ContextState);
 
-    const { pathname } = location;
-
-    const [openKeys, setOpenKeys] = useState<PathKey>(() => initMenu(pathname));
+    const [openKeys, setOpenKeys] = useState<PathKey>(() => initMenu(location.pathname));
 
     function onClick(e: ClickParam) {
         navigate(toPathUrl(e.keyPath));
-        setOpenKeys(e.keyPath)
+        setOpenKeys(e.keyPath);
     };
 
     function onOpenChange(path: string[]) {

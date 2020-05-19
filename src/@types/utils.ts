@@ -21,6 +21,6 @@ export type DiffType<T, U> = T extends U ? never : T;
 /**
  * Object Types
  */
-export type ObjType<T> = {
-    [index in number | string]: T;
+export type ObjType<T, A = any> = {
+    [I in number | string]: T | A;
 };

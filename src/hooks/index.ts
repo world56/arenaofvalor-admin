@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ObjType } from '@/@types/utils';
 
 /**
- * @FormComponent 上传组件Loading状态管理
+ * @FormComponent 表单上传组件 Loading状态管理
  * @setTimeout 解决 getValueFromEvent 事件执行顺序问题
  */
 export type useUploadState = ObjType<boolean>;
