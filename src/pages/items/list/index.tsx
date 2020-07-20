@@ -52,8 +52,8 @@ class ItemsList extends React.Component<{}, ItemsListState> {
 
     /**
      *  函数返回、与直接传递对象的方式修改state是有区别的
-     *  函数：依次执行(同步)
-     *  对象：合并多次setState(异步)
+     *  函数：依次执行
+     *  对象：合并多次setState
      */
     protected add = () => {
         this.setState((s: ItemsListState) => {
