@@ -2,8 +2,8 @@ import React from 'react';
 import style from './index.styl?';
 import icon from '@/resource/icon.jpg';
 // import { useDispatch } from 'react-redux';
-import { ClickParam } from 'antd/lib/menu';
 import { Menu, Dropdown, message } from 'antd';
+import { MenuInfo } from 'rc-menu/lib/interface';
 import { PoweroffOutlined } from '@ant-design/icons';
 
 const { userHandler } = style;
@@ -12,7 +12,7 @@ const UserHandler: React.FC = () => {
 
     // const dis = useDispatch();
 
-    function click({ key }: ClickParam) {
+    function click({ key }: MenuInfo) {
         switch (key) {
             case '0':
                 message.loading('正在清除用户缓存');

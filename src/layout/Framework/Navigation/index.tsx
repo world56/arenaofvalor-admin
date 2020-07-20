@@ -10,10 +10,11 @@ import { initMenu } from '@/utils/system';
 import { toPathUrl } from '@/utils/router';
 import ContextState from '../ContextState';
 import Router from '@/router/path/private';
-import { MenuProps, ClickParam } from 'antd/lib/menu';
+import { MenuProps } from 'antd/lib/menu';
+import { MenuInfo } from 'rc-menu/lib/interface'
 import { useNavigate, useLocation } from 'react-router-dom';
 
-type PathKey = Array<string | undefined>;
+type PathKey = Array<React.Key | undefined>;
 
 const MenuPath: PathKey = Router.map(v => v.redirect);
 
@@ -27,7 +28,7 @@ const Navigation = () => {
 
     const [openKeys, setOpenKeys] = useState<PathKey>(() => initMenu(pathname));
 
-    function onClick(e: ClickParam) {
+    function onClick(e: MenuInfo) {
         navigate(toPathUrl(e.keyPath));
         setOpenKeys(e.keyPath)
     };

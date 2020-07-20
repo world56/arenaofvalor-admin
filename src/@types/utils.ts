@@ -3,7 +3,7 @@
  * 将接口定义成属性可选
 */
 export type Partials<T> = {
-    [I in keyof T]?: T[I] | undefined;
+    [I in keyof T]?: T[I];
 };
 
 /**

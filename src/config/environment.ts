@@ -5,9 +5,9 @@
  * So 难得搞了
  */
 
-export const requsetTimeout = 1000 * 20;
+export const timeout = 1000 * 20;
 
-export const baseUrl = 'http://localhost:4001/admin';
+export const prefix = 'http://localhost:4001/admin';
 
 export const uploadFilesUrl = 'http://localhost:4001/admin/upload';
 
