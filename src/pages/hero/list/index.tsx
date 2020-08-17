@@ -15,7 +15,7 @@ import { getHeroList, deleteHero, HeroParam } from '@/api/hero';
 
 const HeroList: React.FC = () => {
 
-    const [list, setList] = useState([]);
+    const [list, setList] = useState<HeroParam[]>([]);
 
     const navigate = useNavigate();
 
@@ -77,15 +77,13 @@ const HeroList: React.FC = () => {
 
     return (
         <Page>
-            <TypeManageTitle name='物品' add={editHero} init={init} />
-
+            <TypeManageTitle name='英雄' add={editHero} init={init} />
             <Table
                 rowKey={r => r._id}
                 dataSource={list}
                 className='table'
                 pagination={false}
                 columns={columns} />
-
         </Page>
     );
 

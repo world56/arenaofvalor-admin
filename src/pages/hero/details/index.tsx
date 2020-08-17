@@ -5,17 +5,19 @@ import React, {
 } from 'react';
 import styles from './index.styl?';
 import { useUploadState } from '@/hooks';
-import { getItemsList } from '@/api/items';
 import BtnCenter from '@/layout/BtnCenter';
 import { beforeUpload } from '@/utils/file';
+import * as HERO_ENUM from '@/constant/hero';
 import { useLocation } from 'react-router-dom';
-import { getTagList, TagParam } from '@/api/tag';
 import { Store } from 'rc-field-form/lib/interface';
+import { HeroRouteParam } from '@/@types/routeParam';
 import { uploadFilesUrl } from '@/config/environment';
+import { getItemsList, ItemParam } from '@/api/items';
+import { getTagList, TagParam, TagList } from '@/api/tag';
 import { InternalFieldProps } from 'rc-field-form/lib/Field';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { addHeroDetails, HeroParam, getHeroDetails } from '@/api/hero';
 import { Form, Input, Button, Upload, Select, Rate, Card, message } from 'antd';
+import { addHeroDetails, HeroParam, getHeroDetails, editHeroDetails } from '@/api/hero';
 
 type TagType = TagParam & { name: string };
 
@@ -30,59 +32,56 @@ const ListLayout = {
 };
 
 const tabListNoTitle = [
-    {
-        tab: '基本信息',
-        key: '基本信息',
-    },
-    {
-        tab: '技能信息',
-        key: '技能信息',
-    }
+    { tab: HERO_ENUM.HERO_TAB.BASIC, key: HERO_ENUM.HERO_TAB.BASIC },
+    { tab: HERO_ENUM.HERO_TAB.SKILL, key: HERO_ENUM.HERO_TAB.SKILL }
 ];
 
 const initVal = { skills: [{ name: '名称', icon: '' }] };
 
 const HeroDetails = () => {
 
-    const location = useLocation();
-    const _id = location?.state?._id;
+    const location = useLocation() as HeroRouteParam;
+    const _id = location.state?._id;
 
     const [form] = Form.useForm();
 
-    const [hero, setHero] = useState<TagType[]>([]);
-    const [equip, setEquip] = useState<TagType[]>([]);
     const { load, setState } = useUploadState();
+    const [hero, setHero] = useState<TagList[]>([]);
+    const [equip, setEquip] = useState<ItemParam[]>([]);
 
-    const [cardState, setCaedState] = useState('基本信息');
+    const [cardState, setCaedState] = useState<HERO_ENUM.HERO_TAB_TYPE.VAL>(HERO_ENUM.HERO_TAB.BASIC);
 
     const initSelect = useCallback(async () => {
-        const [tag, item] = await Promise.all<TagType[]>([getTagList(), getItemsList()]);
+        const [tag, item] = await Promise.all([getTagList(), getItemsList()]);
         setHero(tag);
         setEquip(item);
     }, []);
 
     const init = useCallback(async () => {
-        const res = await getHeroDetails({ _id });
-        console.log(res, '!!!!!!!');
-    }, [_id]);
+        if (_id) {
+            const res = await getHeroDetails({ _id });
+            form.setFieldsValue(res);
+        }
+    }, [_id, form]);
 
     useEffect(() => {
         init();
         initSelect();
     }, [initSelect, init]);
 
-    // useEffect(() => {
-    //     console.log(_id, '传递了ID');
-    // }, [_id]);
-
     async function sumbit(e: Store) {
-        console.log(e, 'SUMBIT');
-        await addHeroDetails(e as HeroParam);
-        message.success('新增成功');
+        const param = _id ? { ...e, _id } : e;
+        const request = _id ? editHeroDetails : addHeroDetails;
+        await request(param as HeroParam)
+        message.success('操作成功');
+        goBack();
     };
 
+    function goBack() {
+        window.history.back();
+    }
+
     const toFile: InternalFieldProps['getValueFromEvent'] = (e, i) => {
-        console.log(e)
         const { file: { status, response } } = e;
         if (status === 'uploading' && !load[i]) {
             setState(i, true);
@@ -105,7 +104,7 @@ const HeroDetails = () => {
     };
 
     function onTabChange(key: string) {
-        setCaedState(key);
+        setCaedState(key as HERO_ENUM.HERO_TAB_TYPE.VAL);
     };
 
     const heroImg = form.getFieldValue('icon');
@@ -276,7 +275,7 @@ const HeroDetails = () => {
             </Card>
             <BtnCenter>
                 <Button type="primary" htmlType="submit">提交</Button>
-                <Button htmlType="button">返回</Button>
+                <Button onClick={goBack} htmlType="button">返回</Button>
             </BtnCenter>
         </Form>
     );

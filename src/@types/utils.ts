@@ -1,4 +1,3 @@
-
 /**
  * 将接口定义成属性可选
 */
@@ -24,3 +23,8 @@ export type DiffType<T, U> = T extends U ? never : T;
 export type ObjType<T, A = any> = {
     [I in number | string]: T | A;
 };
+
+/**
+ * const from value
+ */
+export type ConstantVal<T> = T[keyof T];

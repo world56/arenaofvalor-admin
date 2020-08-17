@@ -14,15 +14,6 @@ interface Window {
   __REDUX_DEVTOOLS_EXTENSION__?: any;
 };
 
-declare module 'react-router-dom' {
-  const src: string;
-  export const Outlet: any;
-  export const useNavigate: any;
-  export const useLocation: any;
-  export const createBrowserHistory: any;
-  export default src;
-};
-
 declare module '*.bmp' {
   const src: string;
   export default src;

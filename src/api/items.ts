@@ -6,7 +6,7 @@ import request from '@/utils/request';
 export interface addItems { name: string; };
 
 export function addItems(data: addItems) {
-    return request('/rest/items', {
+    return request<addItems>('/rest/items', {
         method: 'POST',
         data
     });
@@ -16,7 +16,7 @@ export function addItems(data: addItems) {
  * 获取物品列表
  */
 export function getItemsList() {
-    return request('/rest/items', {
+    return request<ItemParam[]>('/rest/items', {
         method: 'GET',
     });
 };
@@ -30,7 +30,7 @@ export interface ItemParam extends addItems {
 };
 
 export function changeItemsDetails(data: ItemParam) {
-    return request('/rest/items', {
+    return request<ItemParam>('/rest/items', {
         method: 'PUT',
         data
     });
@@ -40,7 +40,7 @@ export function changeItemsDetails(data: ItemParam) {
  * 删除物品
  */
 export function deleteItems(params: ItemParam) {
-    return request('/rest/items', {
+    return request<{ msg: string }>('/rest/items', {
         method: 'DELETE',
         params
     });

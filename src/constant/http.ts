@@ -2,7 +2,7 @@ import * as  UtilsTypes from '@/@types/utils';
 
 type HttpCodeType = Readonly<UtilsTypes.ObjType<string>>;
 
-export const HTTP_STATUS_CODE: HttpCodeType = Object.freeze({
+export const HTTP_STATUS_CODE: HttpCodeType = Object.freeze(<const>{
     200: '服务器成功返回请求的数据。',
     201: '新建或修改数据成功。',
     202: '一个请求已经进入后台排队（异步任务）。',
@@ -20,7 +20,7 @@ export const HTTP_STATUS_CODE: HttpCodeType = Object.freeze({
     504: '网关超时。',
 });
 
-export const HTTP_INTERIOR_CODE: HttpCodeType = Object.freeze({
+export const HTTP_INTERIOR_CODE: HttpCodeType = Object.freeze(<const>{
     200: '请求成功',
     401: '登录超时,请重新登录账号',
     500: '系统错误'

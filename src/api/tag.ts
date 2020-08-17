@@ -6,7 +6,7 @@ import request from '@/utils/request';
 export interface addTag { name: string; };
 
 export function addTag(data: addTag) {
-    return request('/rest/categories', {
+    return request<TagParam>('/rest/categories', {
         method: 'POST',
         data
     });
@@ -15,8 +15,10 @@ export function addTag(data: addTag) {
 /**
  * 获取标签列表
  */
+export type TagList = TagParam & { parent: TagParam };
+
 export function getTagList() {
-    return request('/rest/categories', {
+    return request<TagList[]>('/rest/categories', {
         method: 'GET',
     });
 };
@@ -30,7 +32,7 @@ export interface TagParam extends addTag {
 };
 
 export function changeTagDetails(data: TagParam) {
-    return request('/rest/categories', {
+    return request<TagParam & { parent: string }>('/rest/categories', {
         method: 'PUT',
         data
     });
@@ -40,7 +42,7 @@ export function changeTagDetails(data: TagParam) {
  * 删除标签
  */
 export function deleteTag(params: TagParam) {
-    return request('/rest/categories', {
+    return request<{ msg: string }>('/rest/categories', {
         method: 'DELETE',
         params
     });

@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { MongoModel } from '@/@types/mongo';
 
 /**
- * @英雄技能信息
+ * @name Skills 英雄技能信息
  */
 export type Skills = {
     icon: string;
@@ -12,10 +12,9 @@ export type Skills = {
 }[];
 
 /**
- * @英雄Model
+ * @name HeroParam 英雄Model
  */
-export interface HeroParam {
-    _id: string;
+export interface HeroParam extends MongoModel {
     name: string;
     icon: string;
     title: string;
@@ -38,27 +37,37 @@ export interface HeroParam {
  * 英雄列表
  */
 export function getHeroList() {
-    return request('/rest/hero', {
+    return request<HeroParam[]>('/rest/hero', {
         method: 'GET',
     });
 };
-
 
 /**
  * 新增英雄
  */
 export function addHeroDetails(data: HeroParam) {
-    return request('/rest/hero', {
+    return request<HeroParam>('/rest/hero', {
         method: 'POST',
         data
     });
 };
 
 /**
+ * 编辑英雄
+ */
+export function editHeroDetails(data: HeroParam) {
+    return request<HeroParam>('/rest/hero', {
+        method: 'PUT',
+        data
+    });
+};
+
+
+/**
  * 删除英雄
  */
 export function deleteHero(params: MongoModel) {
-    return request('/rest/hero/details', {
+    return request<void>('/rest/hero', {
         method: 'DELETE',
         params
     });
@@ -68,7 +77,7 @@ export function deleteHero(params: MongoModel) {
  * 获取英雄详情
  */
 export function getHeroDetails(params: MongoModel) {
-    return request('/rest/hero', {
+    return request<HeroParam>(`/rest/hero/${params._id}`, {
         method: 'GET',
         params
     });
