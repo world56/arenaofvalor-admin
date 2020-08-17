@@ -1,4 +1,5 @@
 import request from '@/utils/request';
+import { MongoModel } from '@/@types/mongo';
 
 /**
  * 新增标签
@@ -26,8 +27,7 @@ export function getTagList() {
 /**
  * 编辑标签 修改标签名称
  */
-export interface TagParam extends addTag {
-    _id: string;
+export interface TagParam extends addTag, MongoModel {
     parent: TagParam;
 };
 
