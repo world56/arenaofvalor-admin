@@ -3,7 +3,7 @@
 * Typescript
 
 * React
-* react-router-dom v6 alpha-03 (v6的aplha版暂不支持typescript)
+* react-router-dom v6 6.0.0-beta.0
 * redux
 * redux-saga
 

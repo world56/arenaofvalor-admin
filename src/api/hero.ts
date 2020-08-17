@@ -62,7 +62,6 @@ export function editHeroDetails(data: HeroParam) {
     });
 };
 
-
 /**
  * 删除英雄
  */
