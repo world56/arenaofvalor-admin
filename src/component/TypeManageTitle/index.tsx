@@ -4,7 +4,7 @@ import { ComponentNoUpdate } from '@/utils/system';
 import { SearchOutlined } from '@ant-design/icons';
 
 interface P {
-    name: string;
+    name?: string;
     add: () => void;
     init: () => void;
 };

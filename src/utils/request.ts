@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { extend } from 'umi-request';
 import { ResponseError } from 'umi-request';
 import { notification, message } from 'antd';
-import { prefix, timeout } from '@/config/environment';
+import { prefix, timeout } from '@/config/env';
 import { HTTP_INTERIOR_CODE, HTTP_STATUS_CODE } from '@/constant/http';
 
 async function errorHandler(res: ResponseError): Promise<Response> {

@@ -34,5 +34,27 @@ export default [
                 component: lazy(() => import('@/pages/hero/details'))
             }
         ]
-    }
+    },
+    {
+        name: 'article',
+        path: '/article/*',
+        title: '文章管理',
+        component,
+        routes: [
+            {
+                name: 'articleList',
+                path: '/articleList',
+                title: '文章列表',
+                component: lazy(() => import('@/pages/article/list'))
+            },
+            {
+                name: 'articleDetails',
+                path: '/articleDetails',
+                title: '文章详情',
+                nav: true,
+                component: lazy(() => import('@/pages/article/details'))
+            }
+        ],
+
+    },
 ] as Router;

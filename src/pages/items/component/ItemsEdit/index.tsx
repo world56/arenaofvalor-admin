@@ -5,7 +5,7 @@ import { ItemsListState } from '../../list';
 import { beforeUpload } from '@/utils/file';
 import { FormInstance } from 'antd/lib/form';
 import { Store } from 'rc-field-form/lib/interface';
-import { uploadFilesUrl } from '@/config/environment';
+import { uploadFilesUrl } from '@/config/env';
 import { InternalFieldProps } from 'rc-field-form/lib/Field';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Modal, Form, Input, Button, message, Upload } from 'antd';

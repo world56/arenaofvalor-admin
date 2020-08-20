@@ -9,17 +9,15 @@ import BtnCenter from '@/layout/BtnCenter';
 import { beforeUpload } from '@/utils/file';
 import * as HERO_ENUM from '@/constant/hero';
 import { useLocation } from 'react-router-dom';
+import { uploadFilesUrl } from '@/config/env';
+import { getTagList, TagList } from '@/api/tag';
 import { Store } from 'rc-field-form/lib/interface';
 import { HeroRouteParam } from '@/@types/routeParam';
-import { uploadFilesUrl } from '@/config/environment';
 import { getItemsList, ItemParam } from '@/api/items';
-import { getTagList, TagParam, TagList } from '@/api/tag';
 import { InternalFieldProps } from 'rc-field-form/lib/Field';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Upload, Select, Rate, Card, message } from 'antd';
 import { addHeroDetails, HeroParam, getHeroDetails, editHeroDetails } from '@/api/hero';
-
-type TagType = TagParam & { name: string };
 
 const layout = {
     labelCol: { span: 2 },
