@@ -1,9 +1,9 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import { MongoModel } from '@/@types/mongo';
 import ListPage from '@/component/ListPage';
-import { TableProps } from 'antd/lib/table/Table';
 import { useNavigate } from 'react-router-dom';
+import { TableProps } from 'antd/lib/table/Table';
 import { TableBtn, TableBtnLayout } from '@/layout/TableBtn';
-
 
 const Article: React.FC<{}> = () => {
 
@@ -19,7 +19,7 @@ const Article: React.FC<{}> = () => {
     const init = useCallback(() => {
     }, []);
 
-    const columns: TableProps<{}>['columns'] = useMemo(() => [
+    const columns: TableProps<MongoModel & { name: string; }>['columns'] = useMemo(() => [
         {
             title: '文章ID',
             dataIndex: '_id',
@@ -46,11 +46,12 @@ const Article: React.FC<{}> = () => {
 
     return (
         <ListPage
-            add={skipDetails}
             init={init}
+            list={list}
             columns={columns}
-            list={list} />
-    )
+            add={skipDetails}
+        />
+    );
 
 };
 

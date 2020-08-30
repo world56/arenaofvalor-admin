@@ -1,5 +1,5 @@
 /**
- * @name MongooseModel Mongoose
+ * @name MongooseModel MongoDBModel
  */
 
 export type MongoModel = {

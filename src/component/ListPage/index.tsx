@@ -1,10 +1,11 @@
 import React from 'react';
 import { Table } from 'antd';
 import { Page } from '@/layout/Page';
+import { MongoModel } from '@/@types/mongo';
 import TypeManageTitle from '../TypeManageTitle';
 import { TableProps } from 'antd/lib/table/Table';
 
-export interface ListPageProps<T extends object = any> {
+export interface ListPageProps<T extends object = {}> {
     /**
      * @name add 新增相关内容
      */
@@ -26,9 +27,11 @@ export interface ListPageProps<T extends object = any> {
 /**
  * @name ListPage 数据列表页面
  * 其实很多list页面都是通用的，也可以封装通用组件提高效率
- * 这里用利用class组件，通过props解决（也可以使用高阶组件）
+ * 这里利用class组件，通过props解决（也可以使用高阶组件）
  */
-class ListPage extends React.PureComponent<ListPageProps, {}> {
+class ListPage<T extends MongoModel = MongoModel> extends React.PureComponent<ListPageProps<T>> {
+
+    private TableRenderKey = (row: T) => row._id;
 
     public render(): JSX.Element {
         const { props } = this;
@@ -37,11 +40,13 @@ class ListPage extends React.PureComponent<ListPageProps, {}> {
                 <TypeManageTitle
                     add={props.add}
                     init={props.init} />
-                <Table rowKey={r => r._id}
-                    dataSource={props.list}
+                <Table
                     className='table'
                     pagination={false}
-                    columns={props.columns} />
+                    dataSource={props.list}
+                    columns={props.columns}
+                    rowKey={this.TableRenderKey}
+                />
             </Page>
         );
     };
