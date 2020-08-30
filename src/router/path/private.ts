@@ -1,6 +1,6 @@
 import { lazy } from 'react';
-import { Router } from '@/@types/router';
 import component from '../component/RouteMiddle';
+import { Router } from '@/@types/router';
 
 export default [
     {

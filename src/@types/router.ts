@@ -6,12 +6,20 @@ export interface Route {
     title?: string;
     nav?: false;
     routes?: Route[];
-    redirect: string;
-    readonly component: React.LazyExoticComponent<() => JSX.Element>;
+    // redirect: string;
+    component: any
 };
 
 export type Router = Route[];
 
 export type PRoutes = {
-    routes: PRoutes[];
+    routes: Router;
+};
+
+export type RouteComponentProps = React.FC<{
+    routes: Router;
+}>;
+
+export type RedirectProps = {
+    to: string;
 };

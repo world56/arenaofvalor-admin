@@ -11,12 +11,12 @@ import { toPathUrl } from '@/utils/router';
 import ContextState from '../ContextState';
 import Router from '@/router/path/private';
 import { MenuProps } from 'antd/lib/menu';
-import { MenuInfo } from 'rc-menu/lib/interface'
+import { MenuInfo } from 'rc-menu/lib/interface';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 type PathKey = Array<React.Key | undefined>;
 
-const MenuPath: PathKey = Router.map(v => v.redirect);
+const MenuPath: PathKey = Router.map(v => v.path);
 
 const Navigation = () => {
 
