@@ -1,7 +1,8 @@
 import tinymce from 'tinymce';
+import lodash from 'lodash';
 import { EDIT_CONFIG } from './config';
 import { RICH_TEXT_KEY } from '@/config/appKey';
-import { Editor as TINYMCE_CONFIG } from 'tinymce/index';
+import { Editor } from 'tinymce/index';
 import 'tinymce/skins/ui/oxide/skin.min.css';
 import 'tinymce/skins/ui/oxide/content.min.css';
 import './language';
@@ -29,11 +30,13 @@ import 'tinymce/plugins/emoticons/js/emojis.min.js';
 import 'tinymce/themes/silver';
 import 'tinymce/icons/default/icons.min';
 
-class EditText {
+export class EditorUtils {
 
-    protected readonly selector: string;
+    public readonly id: string;
 
-    private readonly edit: TINYMCE_CONFIG;
+    private edit: Editor | null = null;
+
+    public value: string = '';
 
     private readonly RICH_TEXT_KEY: RICH_TEXT_KEY = RICH_TEXT_KEY;
 
@@ -42,27 +45,42 @@ class EditText {
     public constructor(
         protected readonly ElementID: string,
     ) {
-        this.edit = tinymce;
-        this.selector = ElementID;
+        this.id = ElementID;
     };
 
-    public create(): TINYMCE_CONFIG {
-        this.config.selector = this.selector;
+    public onChange = (val: string) => {
+        this.value = val;
+    };
+
+    protected registerEvent = (ele: Editor) => {
+        this.edit = ele;
+        ele.on('keyup change', lodash.debounce(() => {
+            this.onChange(ele.getContent());
+        }, 100));
+    };
+
+    public create() {
+        this.config.selector = `#${this.id}`;
+        this.config.setup = this.registerEvent;
         tinymce.init(this.config);
         this.CSSPrivate();
-        return tinymce;
     };
 
     public unmount(): void {
-        this.edit.remove();
+        tinymce.remove();
     };
 
     private CSSPrivate = (): void => {
-        const { selector: id } = this;
-        const ele = document.getElementById(id);
+        const ele = document.getElementById(this.id);
         ele?.attachShadow({ mode: 'closed' });
+    };
+
+    public setContent = (val: string) => {
+        this.edit?.setContent(val);
     };
 
 };
 
-export default EditText;
+export function createEditorId() {
+    return `rich-text-${new Date().valueOf()}`;
+}

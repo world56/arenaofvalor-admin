@@ -11,7 +11,7 @@ declare namespace NodeJS {
 
 interface Window {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: obj;
-  __REDUX_DEVTOOLS_EXTENSION__?: any;
+  __REDUX_DEVTOOLS_EXTENSION__?: Function;
 };
 
 declare module '*.bmp' {

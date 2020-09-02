@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import styles from './index.styl?';
+import BtnCenter from '@/layout/BtnCenter';
 import { getTagList, TagList } from '@/api/tag';
-import { Form, Input, Card, Select } from 'antd';
-import RichText from '@/component/RichText';
+import RichText from '@/component/RichText/Hooks';
+import { Form, Input, Card, Select, Button } from 'antd';
 
 const formLayout = {
     labelCol: {
@@ -25,6 +26,14 @@ const ArticleDetails: React.FC = () => {
         setTag(res);
     }, []);
 
+    const onFinish = (values: any) => {
+        console.log(values);
+    };
+
+    function goBack() {
+        window.history.back();
+    }
+
     useEffect(() => {
         initialization();
     }, [initialization]);
@@ -32,7 +41,7 @@ const ArticleDetails: React.FC = () => {
     return (
         <Form
             form={form}
-            {...formLayout}
+            onFinish={onFinish}
             scrollToFirstError
             className={styles.layout}>
 
@@ -40,6 +49,7 @@ const ArticleDetails: React.FC = () => {
                 <Form.Item
                     name="name"
                     label="文章名称"
+                    {...formLayout}
                     rules={[{ required: true, message: '请输入文章名称' }]}>
                     <Input placeholder='请输入文章名称' />
                 </Form.Item>
@@ -47,6 +57,7 @@ const ArticleDetails: React.FC = () => {
                 <Form.Item
                     name="tag"
                     label="文章标签"
+                    {...formLayout}
                     rules={[{ required: true, message: '请选择文章标签' }]}>
                     <Select mode="multiple" placeholder="逆风出装不得为空">
                         {tag.map(v => <Select.Option key={v._id} value={v.name}>{v.name}</Select.Option>)}
@@ -55,8 +66,18 @@ const ArticleDetails: React.FC = () => {
             </Card>
 
             <Card title="富文本信息">
-                <RichText />
+                <Form.Item
+                    name="text"
+                    className={styles.edit}
+                    rules={[{ required: true, message: '请输入富文本信息' }]}>
+                    <RichText />
+                </Form.Item>
             </Card>
+
+            <BtnCenter>
+                <Button type="primary" htmlType="submit">提交</Button>
+                <Button onClick={goBack} htmlType="button">返回</Button>
+            </BtnCenter>
 
         </Form>
     );
