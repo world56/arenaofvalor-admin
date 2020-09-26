@@ -1,4 +1,3 @@
-
 import { Editor } from 'tinymce/index';
 
 const plugins = 'advlist table wordcount hr visualchars code charmap lists insertdatetime paste preview fullscreen media print link image';
@@ -8,7 +7,7 @@ const fontsize_formats = '14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px
 
 export const EDIT_CONFIG = {
     language: 'zh_CN',
-    skin_url: '/oxide',
+    // skin_url: 'static/js/skins/ui/oxide',
     setup(e: Editor) { },
     browser_spellcheck: true,
     branding: true,
@@ -16,6 +15,7 @@ export const EDIT_CONFIG = {
     statusbar: false,
     tinymce: true,
     height: 650,
+    // inline: true,
     paste_data_images: true,
     plugins,
     toolbar,
@@ -23,7 +23,4 @@ export const EDIT_CONFIG = {
     font_formats,
     fontsize_formats,
     'distraction-free': true,
-
 };
-
-export type EDIT_CONFIG = typeof EDIT_CONFIG;

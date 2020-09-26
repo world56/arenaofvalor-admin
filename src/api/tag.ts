@@ -2,7 +2,7 @@ import request from '@/utils/request';
 import { MongoModel } from '@/@types/mongo';
 
 /**
- * 新增标签
+ *  新增标签
  */
 export interface addTag { name: string; };
 

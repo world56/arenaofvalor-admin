@@ -5,22 +5,22 @@ import { ObjType } from '@/@types/utils';
  * @FormComponent 表单上传组件 Loading状态管理
  * @setTimeout 解决 getValueFromEvent 事件执行顺序问题
  */
-export type useUploadState = ObjType<boolean>;
+export type UseUploadState = ObjType<boolean>;
 
 export function useUploadState() {
 
-    const [load, setLoad] = useState<useUploadState>({});
+    const [load, setLoad] = useState<UseUploadState>({});
 
     function setState(
         k: string | number,
         bol: boolean
     ) {
         setTimeout(() => {
-            setLoad((s: useUploadState) => {
+            setLoad((s: UseUploadState) => {
                 return {
                     ...s,
                     [k]: bol
-                }
+                };
             });
         });
     };

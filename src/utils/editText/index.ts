@@ -1,12 +1,14 @@
+
 import tinymce from 'tinymce';
+import 'tinymce/skins/ui/oxide/skin.min.css';
+import 'tinymce/skins/ui/oxide/content.min.css';
+import 'tinymce/themes/silver';
+import 'tinymce/themes/silver/theme';
 import lodash from 'lodash';
 import { EDIT_CONFIG } from './config';
 import { RICH_TEXT_KEY } from '@/config/appKey';
 import { Editor } from 'tinymce/index';
-import 'tinymce/skins/ui/oxide/skin.min.css';
-import 'tinymce/skins/ui/oxide/content.min.css';
-import './language';
-import 'tinymce/themes/silver/theme';
+import './lang';
 import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/paste';
 import 'tinymce/plugins/wordcount';
@@ -26,26 +28,31 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/charmap';
 import 'tinymce/plugins/code';
 import 'tinymce/icons/default';
-import 'tinymce/plugins/emoticons/js/emojis.min.js';
-import 'tinymce/themes/silver';
 import 'tinymce/icons/default/icons.min';
+
+// import 'tinymce/skins/ui/oxide/skin.min.css';
+// import 'tinymce/skins/ui/oxide/content.min.css';
+
+// require('tinymce/skins/ui/oxide/skin.min.css')
+// require('tinymce/skins/ui/oxide/content.min.css')
 
 export class EditorUtils {
 
-    public readonly id: string;
+    public id: string;
 
-    private edit: Editor | null = null;
+    private edit: Editor;
 
     public value: string = '';
 
     private readonly RICH_TEXT_KEY: RICH_TEXT_KEY = RICH_TEXT_KEY;
 
-    protected config: EDIT_CONFIG & { selector?: string; } = EDIT_CONFIG;
+    protected config: typeof EDIT_CONFIG & { selector?: string; } = EDIT_CONFIG;
 
     public constructor(
-        protected readonly ElementID: string,
+        protected readonly ELE_ID?: string,
     ) {
-        this.id = ElementID;
+        this.edit = tinymce;
+        this.id = this.createEleID(ELE_ID);
     };
 
     public onChange = (val: string) => {
@@ -61,13 +68,13 @@ export class EditorUtils {
 
     public create() {
         this.config.selector = `#${this.id}`;
-        this.config.setup = this.registerEvent;
         tinymce.init(this.config);
+        this.config.setup = this.registerEvent;
         this.CSSPrivate();
     };
 
     public unmount(): void {
-        tinymce.remove();
+        this.edit.remove();
     };
 
     private CSSPrivate = (): void => {
@@ -79,8 +86,9 @@ export class EditorUtils {
         this.edit?.setContent(val);
     };
 
-};
 
-export function createEditorId() {
-    return `rich-text-${new Date().valueOf()}`;
-}
+    private createEleID(ELE_ID?: string) {
+        return ELE_ID ? ELE_ID : `rich-text-${new Date().valueOf()}`;
+    };
+
+};

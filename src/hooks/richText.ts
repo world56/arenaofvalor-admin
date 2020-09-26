@@ -1,10 +1,9 @@
 import { useEffect, useMemo } from 'react';
-import { EditorUtils, createEditorId } from '@/utils/editText';
+import { EditorUtils } from '@/utils/editText';
 
 export function useEditor(): [EditorUtils] {
 
-    const id = useMemo(() => createEditorId(), []);
-    const edit = useMemo(() => new EditorUtils(id), [id]);
+    const edit = useMemo(() => new EditorUtils(), []);
 
     useEffect(() => {
         edit.create();
@@ -12,4 +11,5 @@ export function useEditor(): [EditorUtils] {
     }, [edit]);
 
     return [edit];
+
 };

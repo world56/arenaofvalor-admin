@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { TableProps } from 'antd/lib/table/Table';
 import { TableBtn, TableBtnLayout } from '@/layout/TableBtn';
 
+type TablePropsParam = TableProps<MongoModel & { name: string; }>['columns'];
+
 const Article: React.FC<{}> = () => {
 
     const [list] = useState([]);
@@ -19,7 +21,7 @@ const Article: React.FC<{}> = () => {
     const init = useCallback(() => {
     }, []);
 
-    const columns: TableProps<MongoModel & { name: string; }>['columns'] = useMemo(() => [
+    const columns: TablePropsParam = useMemo(() => [
         {
             title: '文章ID',
             dataIndex: '_id',
