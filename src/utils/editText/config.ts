@@ -7,7 +7,7 @@ const fontsize_formats = '14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px
 
 export const EDIT_CONFIG = {
     language: 'zh_CN',
-    // skin_url: 'static/js/skins/ui/oxide',
+    skin_url: '/',
     setup(e: Editor) { },
     browser_spellcheck: true,
     branding: true,

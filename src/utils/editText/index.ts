@@ -1,7 +1,5 @@
 
 import tinymce from 'tinymce';
-import 'tinymce/skins/ui/oxide/skin.min.css';
-import 'tinymce/skins/ui/oxide/content.min.css';
 import 'tinymce/themes/silver';
 import 'tinymce/themes/silver/theme';
 import lodash from 'lodash';
@@ -29,12 +27,6 @@ import 'tinymce/plugins/charmap';
 import 'tinymce/plugins/code';
 import 'tinymce/icons/default';
 import 'tinymce/icons/default/icons.min';
-
-// import 'tinymce/skins/ui/oxide/skin.min.css';
-// import 'tinymce/skins/ui/oxide/content.min.css';
-
-// require('tinymce/skins/ui/oxide/skin.min.css')
-// require('tinymce/skins/ui/oxide/content.min.css')
 
 export class EditorUtils {
 

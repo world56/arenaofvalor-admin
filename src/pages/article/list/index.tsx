@@ -4,6 +4,8 @@ import ListPage from '@/component/ListPage';
 import { useNavigate } from 'react-router-dom';
 import { TableProps } from 'antd/lib/table/Table';
 import { TableBtn, TableBtnLayout } from '@/layout/TableBtn';
+// import 'tinymce/skins/ui/oxide/skin.min.css';
+// import 'tinymce/skins/ui/oxide/content.min.css';
 
 type TablePropsParam = TableProps<MongoModel & { name: string; }>['columns'];
 
